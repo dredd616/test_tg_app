@@ -112,7 +112,7 @@ const startGame = () => {
 };
 
 // Обработчик кнопки для управления музыкой
-musicToggle.addEventListener("click", () => {
+musicToggle.addEventListener("click", (e) => {
   if (backgroundMusic.paused) {
     backgroundMusic.play();
     musicToggle.textContent = "Pause Music"; // Изменяем текст кнопки на "Пауза"
@@ -122,6 +122,7 @@ musicToggle.addEventListener("click", () => {
     musicToggle.textContent = "Play Music"; // Изменяем текст кнопки на "Играть"
     isMusicPlaying = false; // Устанавливаем флаг, что музыка остановлена
   }
+  e.stopPropagation();
 });
 
 // Обработчик кнопки старта игры
