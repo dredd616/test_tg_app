@@ -1,0 +1,130 @@
+#game {
+    width: 500px;
+    height: 200px;
+    margin: auto;
+    position: relative;
+    background-image: url('./images/bg.png');
+    background-repeat: repeat-x;
+    background-size: 500px 200px;
+}
+
+.bgMove {
+    animation: bgMove 10s infinite linear;
+}
+
+@keyframes bgMove {
+    0% {
+        background-position: 500px;
+    }
+    100%{
+        background-position: 0px;
+    }
+}
+
+#house {
+    display: none;
+    width: 86px;
+    height: 58px;
+    background-image: url('./images/house.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#character {
+    width: 20px;
+    height: 44px;
+    background-image: url('./images/character.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    position: relative;
+    left: 50px;
+    top: 130px;
+}
+
+.jump {
+    animation: jump 1s linear;
+}
+
+.goToHouse {
+    animation: goToHouse 4s forwards;
+}
+
+@keyframes jump {
+    0% {
+        top: 130px;
+    }
+    30% {
+        top: 100px;
+    }
+    50% {
+        top: 65px;
+    }
+    80% {
+        top: 100px;
+    }
+    100% {
+        top: 130px
+    }
+}
+
+@keyframes goToHouse {
+    0% {
+        left: 50px;
+    }
+    100% {
+        left: 450px;
+    }
+}
+
+#box {
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    background-image: url('./images/box.png');
+    background-repeat: no-repeat;
+    background-size: 35px 35px;
+    background-position: center;
+    position: relative;
+    top: 100px; 
+    left: 465px;
+}
+
+.boxMove {
+    animation: boxMove 3s infinite linear;
+}
+
+@keyframes boxMove {
+    0% {
+        left: 450px;
+    }
+    100% {
+        left: 0px
+    }
+}
+
+#musicToggle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+#restartButton {
+    z-index: 5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
