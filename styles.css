@@ -85,7 +85,7 @@ html, body {
         left: 50px;
     }
     100% {
-        left: 450px;
+        left: 100vw;
     }
 }
 

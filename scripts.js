@@ -12,6 +12,7 @@ const restartButton = document.getElementById("restartButton"); // Кнопка 
 let isJumping = false; // Флаг для отслеживания состояния прыжка
 let isColliding = false; // Флаг для отслеживания состояния коллизии
 let collisionInterval; // Переменная для интервала проверки коллизий
+let collisionHouseTimeout; // Переменная для таймера проверки коллизий с домом
 
 // Установите уровень громкости (от 0.0 до 1.0)
 backgroundMusic.volume = 0.5; // Установите громкость на 50%
@@ -65,6 +66,7 @@ const checkCollision = () => {
         game.classList.remove("bgMove");
         alert("Game Over!"); // Выводим сообщение об окончании игры
         clearInterval(collisionInterval); // Останавливаем проверку столкновения
+        clearTimeout(collisionHouseTimeout);
         restartButton.style.display = "block"; // Показываем кнопку перезапуска игры
         startButton.style.display = "block"; // Показываем кнопку старта игры
         heartsDisplay.textContent = `Hearts: 3`;
@@ -79,7 +81,7 @@ const checkCollision = () => {
 document.addEventListener("keydown", jump);
 
 // Функция для запуска игры
-const startGame = () => {
+const startGame = (e) => {
   hearts = 3;
   heartsDisplay.textContent = `Hearts: ${hearts}`;
   isJumping = false;
@@ -101,14 +103,15 @@ const startGame = () => {
     backgroundMusic.play(); // Запускаем музыку при старте игры.
   }
 
-  setTimeout(() => {
+  collisionHouseTimeout = setTimeout(() => {
     if (hearts > 0) {
       box.style.display = "none"; // Скрываем коробки после 30 секунд игры
       house.style.display = "block"; // Показываем дом после исчезновения коробок
       character.classList.remove("jump");
       character.classList.add("goToHouse");
     }
-  }, 30000); // Через 30 секунд (30000 миллисекунд)
+  }, 10000); // Через 30 секунд (30000 миллисекунд)
+  e.stopPropagation();
 };
 
 // Обработчик кнопки для управления музыкой
@@ -129,8 +132,8 @@ musicToggle.addEventListener("click", (e) => {
 startButton.addEventListener("click", startGame);
 
 // Обработчик кнопки перезапуска игры
-restartButton.addEventListener("click", () => {
-  startGame();
+restartButton.addEventListener("click", (e) => {
+  startGame(e);
   restartButton.style.display = "none"; // Скрываем кнопку перезапуска при начале новой игры.
 });
 
@@ -149,6 +152,7 @@ const checkHouseCollision = () => {
     alert("Вы прошли игру!"); // Выводим сообщение о прохождении игры
 
     clearInterval(collisionInterval); // Останавливаем проверку столкновения при достижении дома.
+    clearTimeout(collisionHouseTimeout);
     restartButton.style.display = "none"; // Показываем кнопку перезапуска игры.
     startButton.style.display = "block"; // Показываем кнопку старта игры.
     character.style.display = "none";
