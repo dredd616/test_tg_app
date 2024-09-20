@@ -30,10 +30,13 @@ const jump = (e, isMobile = false) => {
 };
 
 // Обработчик касания экрана (для мобильных устройств)
-document.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // Предотвращаем прокрутку страницы при касании
-  jump(e, true);
-});
+document.addEventListener(
+  "touchstart",
+  (e) => {
+    jump(e, true);
+  },
+  { passive: true }
+);
 
 // Событие завершения анимации прыжка
 character.addEventListener("animationend", () => {
@@ -53,12 +56,9 @@ const checkCollision = () => {
     characterRect.y + characterRect.height > boxRect.y;
 
   if (isCurrentlyColliding) {
-    console.log("Collision detected!"); // Отладочное сообщение
-
     if (!isColliding) {
       hearts--; // Уменьшаем количество жизней
       heartsDisplay.textContent = `Hearts: ${hearts}`; // Обновляем отображение жизней
-      console.log(`Hearts decreased: ${hearts}`); // Отладочное сообщение
       isColliding = true; // Устанавливаем флаг коллизии
 
       if (hearts <= 0) {
@@ -88,6 +88,7 @@ const startGame = (e) => {
   isColliding = false;
 
   game.classList.add("bgMove");
+  game.style.webkitAnimationPlayState = "running";
   box.classList.add("boxMove");
   house.style.display = "none";
   box.style.display = "block";
@@ -108,6 +109,7 @@ const startGame = (e) => {
       box.style.display = "none"; // Скрываем коробки после 30 секунд игры
       house.style.display = "block"; // Показываем дом после исчезновения коробок
       character.classList.remove("jump");
+      game.style.webkitAnimationPlayState = "paused";
       character.classList.add("goToHouse");
     }
   }, 30000); // Через 30 секунд (30000 миллисекунд)
