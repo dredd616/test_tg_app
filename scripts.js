@@ -110,7 +110,7 @@ const startGame = (e) => {
       character.classList.remove("jump");
       character.classList.add("goToHouse");
     }
-  }, 10000); // Через 30 секунд (30000 миллисекунд)
+  }, 30000); // Через 30 секунд (30000 миллисекунд)
   e.stopPropagation();
 };
 
